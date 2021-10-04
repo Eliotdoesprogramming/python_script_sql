@@ -19,11 +19,9 @@ def multiple_fast_insert(dataframe:pd.DataFrame,
     qmark = qmark[:-1]
 
     df_listed = dataframe.values.tolist()
-    print(df_listed)
     i = 0
     while i < len(df_listed):
         chunk = df_listed[i:i+batch_size]
-        print(chunk)
         cur.executemany('INSERT INTO '+schema+'.'+table+' ('+headers+') VALUES ('+qmark+')', chunk)
         i += batch_size
     sql_conn.commit()
